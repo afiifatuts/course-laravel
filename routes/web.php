@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscribeTransactionController;
+use App\Http\Controllers\TeacherController;
+use App\Models\CourseVideo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,5 +21,23 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//Authentication login
+Route::prefix('admin')->name('admin.')->group(function ()  {
+    //menggunakan recourse karena hanya sekali pakai
+    //middlewarenya bergantung kepada owner dan teacher
+    //yang ada middleware owner dan teacher 
+    Route::resource('categories',CategoryController::class)->middleware('role:owner');
+    
+    Route::resource('teachers',TeacherController::class)->middleware('role:owner');
+
+    Route::resource('courses',CourseController::class)->middleware('role:owner|teacher');
+
+    Route::resource('subscribe_transaction',SubscribeTransactionController::class)->middleware('role:owner');
+
+    Route::resource('course_videos',CourseVideo::class)->middleware('role:owner|teacher');
+
+});
+
 
 require __DIR__.'/auth.php';
