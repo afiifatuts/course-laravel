@@ -14,4 +14,9 @@ class Category extends Model
     protected $guarded = [
         'id',
     ];
+
+    //ORM(Object Relational Model)
+    public function courses(){
+        return $this->hasMany(Course::class);
+    }   
 }
