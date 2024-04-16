@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subsribe_transactions', function (Blueprint $table) {
+        Schema::create('subscribe_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('total_amount');
             $table->boolean('is_paid');

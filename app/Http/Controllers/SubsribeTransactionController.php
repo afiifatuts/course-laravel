@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SubsribeTransaction;
+use App\Models\SubscribeTransaction;
 use Illuminate\Http\Request;
 
-class SubsribeTransactionController extends Controller
+class SubscribeTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class SubsribeTransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubsribeTransaction $subsribeTransaction)
+    public function show(SubscribeTransaction $subsribeTransaction)
     {
         //
     }
@@ -42,7 +42,7 @@ class SubsribeTransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SubsribeTransaction $subsribeTransaction)
+    public function edit(SubscribeTransaction $subsribeTransaction)
     {
         //
     }
@@ -50,7 +50,7 @@ class SubsribeTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubsribeTransaction $subsribeTransaction)
+    public function update(Request $request, SubscribeTransaction $subsribeTransaction)
     {
         //
     }
@@ -58,7 +58,7 @@ class SubsribeTransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SubsribeTransaction $subsribeTransaction)
+    public function destroy(SubscribeTransaction $subsribeTransaction)
     {
         //
     }
