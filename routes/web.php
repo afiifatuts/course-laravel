@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseVideoController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscribeTransactionController;
@@ -29,8 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     //must logged in before transaction
-    Route::get('/checkout', [FrontController::class, 'checkout'])->name('profile.checkout');
-    Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('profile.checkout.store');
+    Route::get('/checkout', [FrontController::class, 'checkout'])->name('profile.checkout')->middleware('role:student');
+    Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('profile.checkout.store')->middleware('role:student');
+
+    Route::post('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('profile.learning')->middleware('role:student|owner|teacher');
 
 
 
@@ -45,13 +48,22 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('courses',CourseController::class)->middleware('role:owner|teacher');
 
-    Route::resource('subscribe_transaction',SubscribeTransactionController::class)->middleware('role:owner');
+    Route::resource('subscription_transaction',SubscribeTransactionController::class)->middleware('role:owner');
+    
+    Route::get('/add/video/{course:id}',[CourseVideoController::class,'create'])
+    ->middleware('role:teacher|owner')
+    ->name('course.add_video');
 
-    Route::resource('course_videos',CourseVideo::class)->middleware('role:owner|teacher');
+    Route::post('/add/video/save/{course:id}',[CourseVideoController::class,'stores'])
+    ->middleware('role:teacher|owner')
+    ->name('course.save_video');
+
+    Route::resource('course_videos',CourseVideoController::class)->middleware('role:owner|teacher');
+
+    
 
 });
 });
-
 
 
 

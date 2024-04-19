@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -12,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::orderByDesc('id')->get();
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -20,15 +24,34 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        DB::transaction(function () use($validated, $request) {
+            
+            if($request->hasFile('icon')){
+                $iconPath = $request->file('icon')->store('icons','public');
+                $validated['icon']= $iconPath;
+            }else{
+                $iconPath = 'images/icon-default.png';
+                $validated['icon']= $iconPath;
+            }
+
+            $validated['slug']= Str::slug($validated['name']) ;
+            //slug : web design -> web-design
+
+            $category = Category::create($validated);
+        });
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
