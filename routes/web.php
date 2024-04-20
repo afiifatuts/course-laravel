@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('subscription_transaction',SubTransactionController::class)->middleware('role:owner');
     
+    
     Route::get('/add/video/{course:id}',[CourseVideoController::class,'create'])
     ->middleware('role:teacher|owner')
     ->name('course.add_video');
@@ -58,9 +59,6 @@ Route::middleware('auth')->group(function () {
     ->name('course.save_video');
 
     Route::resource('course_videos',CourseVideoController::class)->middleware('role:owner|teacher');
-
-    
-
 });
 });
 

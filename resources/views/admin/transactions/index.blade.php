@@ -28,12 +28,20 @@
                         <p class="text-slate-500 text-sm">Date</p>
                         <h3 class="text-indigo-950 text-xl font-bold">{{$transaction->created_at}}</h3>
                     </div>
+                    <div>
+                        <p class="text-slate-500 text-sm mb-2">Status</p>
+                        @if ($transaction->is_paid)
+                        <span class="text-sm font-bold py-2 px-3 rounded-full bg-green-500 text-white">Paid</span>
+                        @else
+                        <span class="text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">Pending</span>
+                        @endif
+                    </div>
                     <div class="hidden md:flex flex-col">
                         <p class="text-slate-500 text-sm">Student</p>
                         <h3 class="text-indigo-950 text-xl font-bold">{{$transaction->user->name}}</h3>
                     </div>
                     <div class="hidden md:flex flex-row items-center gap-x-3">
-                        <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                        <a href="{{route('admin.subscription_transaction.show',$transaction)}}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             View Details
                         </a>
                     </div>

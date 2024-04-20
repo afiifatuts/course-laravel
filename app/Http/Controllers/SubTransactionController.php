@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SubscribeTransaction;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class SubTransactionController extends Controller
 {
@@ -35,9 +37,10 @@ class SubTransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubscribeTransaction $subsribeTransaction)
+    public function show($subTransaction)
     {
-        //
+        $subscribeTransaction= SubscribeTransaction::where('id',$subTransaction)->first();
+        return view('admin.transactions.show',compact('subscribeTransaction'));
     }
 
     /**
@@ -51,9 +54,15 @@ class SubTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubscribeTransaction $subsribeTransaction)
+    public function update($subscribeId)
     {
-        //
+        $subscribeTransaction = SubscribeTransaction::where('id',$subscribeId)->first();
+        $subscribeTransaction->update([
+            'is_paid'=>1,
+            'subscription_start_date'=>Carbon::now(),
+        ]);
+        return redirect()->route('admin.subscription_transaction.index');
+
     }
 
     /**
