@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SubscribeTransaction;
 use Illuminate\Http\Request;
+use App\Models\SubscribeTransaction;
 
-class SubscribeTransactionController extends Controller
+class SubTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $transactions = SubscribeTransaction::with(['user'])->orderByDesc('id')->get();
+        return view('admin.transactions.index',compact('transactions'));
     }
 
     /**

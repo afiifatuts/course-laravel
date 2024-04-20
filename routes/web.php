@@ -5,9 +5,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseVideoController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SubscribeTransactionController;
+use App\Http\Controllers\SubTransactionController;
 use App\Http\Controllers\TeacherController;
-use App\Models\CourseVideo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class,'index'])->name('front.index'
@@ -48,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('courses',CourseController::class)->middleware('role:owner|teacher');
 
-    Route::resource('subscription_transaction',SubscribeTransactionController::class)->middleware('role:owner');
+    Route::resource('subscription_transaction',SubTransactionController::class)->middleware('role:owner');
     
     Route::get('/add/video/{course:id}',[CourseVideoController::class,'create'])
     ->middleware('role:teacher|owner')

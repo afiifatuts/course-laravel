@@ -10,6 +10,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10 flex flex-col gap-y-5">
+                @forelse ($transactions as $transaction)
+                    
                 <div class="item-card flex flex-row justify-between items-center">
                     <svg width="46" height="46" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.4" d="M19 10.2798V17.4298C18.97 20.2798 18.19 20.9998 15.22 20.9998H5.78003C2.76003 20.9998 2 20.2498 2 17.2698V10.2798C2 7.5798 2.63 6.7098 5 6.5698C5.24 6.5598 5.50003 6.5498 5.78003 6.5498H15.22C18.24 6.5498 19 7.2998 19 10.2798Z" fill="#292D32"/>
@@ -20,15 +22,15 @@
                         </svg>
                     <div>
                         <p class="text-slate-500 text-sm">Total Amount</p>
-                        <h3 class="text-indigo-950 text-xl font-bold">Rp 183409</h3>
+                        <h3 class="text-indigo-950 text-xl font-bold">Rp {{$transaction->total_amount}}</h3>
                     </div>
                     <div>
                         <p class="text-slate-500 text-sm">Date</p>
-                        <h3 class="text-indigo-950 text-xl font-bold">12 Jan 2024</h3>
+                        <h3 class="text-indigo-950 text-xl font-bold">{{$transaction->created_at}}</h3>
                     </div>
                     <div class="hidden md:flex flex-col">
                         <p class="text-slate-500 text-sm">Student</p>
-                        <h3 class="text-indigo-950 text-xl font-bold">Annima Poppo</h3>
+                        <h3 class="text-indigo-950 text-xl font-bold">{{$transaction->user->name}}</h3>
                     </div>
                     <div class="hidden md:flex flex-row items-center gap-x-3">
                         <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
@@ -36,6 +38,10 @@
                         </a>
                     </div>
                 </div>
+
+                @empty
+                    <p>There's no data transactions</p>
+                @endforelse
             </div>
         </div>
     </div>

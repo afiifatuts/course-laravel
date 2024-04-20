@@ -15,11 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-                        {{ __('Manage Categories') }}
-                    </x-nav-link>
+                    @role('owner|teacher')
                     <x-nav-link :href="route('admin.courses.index')" :active="request()->routeIs('admin.courses.index')">
                         {{ __('Manage Courses') }}
+                    </x-nav-link>
+                    @endrole
+                    @role('owner')
+                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                        {{ __('Manage Categories') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
                         {{ __('Manage Teachers') }}
@@ -27,6 +30,7 @@
                     <x-nav-link :href="route('admin.subscription_transaction.index')" :active="request()->routeIs('admin.subscription_transaction.index')">
                         {{ __('Manage Subscription') }}
                     </x-nav-link>
+                    @endrole 
                 </div>
             </div>
 
