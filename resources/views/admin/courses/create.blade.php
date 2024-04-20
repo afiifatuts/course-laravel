@@ -17,7 +17,7 @@
                     @endforeach
                 @endif
                 
-                <form method="POST" action="#" enctype="multipart/form-data">
+                <form method="POST" action="{{route('admin.courses.store')}}" enctype="multipart/form-data">
                     @csrf
 
                     <div>
@@ -33,25 +33,11 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="teacher" :value="__('teacher')" />
-                        <x-text-input id="teacher" class="block mt-1 w-full" type="text" name="teacher_id" :value="old('teacher')" required autofocus autocomplete="teacher" />
-                        <x-input-error :messages="$errors->get('teacher')" class="mt-2" />
+                        <x-input-label for="path_trailer" :value="__('Path Trailer')" />
+                        <x-text-input id="path_trailer" class="block mt-1 w-full" type="text" name="path_trailer" :value="old('path_trailer')" required autofocus autocomplete="path_trailer" />
+                        <x-input-error :messages="$errors->get('path_trailer')" class="mt-2" />
                     </div>
-
-                    <div class="mt-4">
-                        <x-input-label for="teacher" :value="__('teacher')" />
-                        
-                        <select name="teacher_id" id="teacher_id" class="py-3 rounded-lg pl-3 w-full border border-slate-300">
-                            <option value="">Choose item</option>
-                            @forelse($teachers as $teacher)
-                                <option value="{{$teacher->id}}">{{$teacher->name}}</option>
-                            @empty
-                            @endforelse
-                        </select>
-
-                        <x-input-error :messages="$errors->get('category')" class="mt-2" />
-                    </div>
-
+                   
                     <div class="mt-4">
                         <x-input-label for="category" :value="__('category')" />
                         

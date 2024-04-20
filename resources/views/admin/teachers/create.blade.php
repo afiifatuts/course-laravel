@@ -17,12 +17,12 @@
                     @endforeach
                 @endif
                 
-                <form method="POST" action="#" enctype="multipart/form-data">
+                <form method="POST" action="{{route('admin.teachers.store')}}" enctype="multipart/form-data">
                     @csrf
 
                     <div>
                         <x-input-label for="email" :value="__('email')" />
-                        <x-text-input id="email" class="block mt-1 w-full" type="text" email="text" :value="old('email')" required autofocus autocomplete="email" />
+                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="email" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
