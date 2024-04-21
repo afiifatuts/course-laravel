@@ -57,19 +57,23 @@
                         </div>
                     </div>
                     <div>
-                        <img src="{{Storage::url($subscribeTransaction->proof)}}"
-                            alt="{{Storage::url($subscribeTransaction->proof)}}">
+                        <img src="{{ Storage::url($subscribeTransaction->proof) }}"
+                            alt="{{ Storage::url($subscribeTransaction->proof) }}">
                     </div>
                 </div>
                 <hr class="my-5">
-                <form action="{{ route('admin.subscription_transaction.update', $subscribeTransaction) }}"
-                    method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
-                        Approve Transaction
-                    </button>
-                </form>
+                @if ($subscribeTransaction->is_paid)
+                @else
+                    <form action="{{ route('admin.subscription_transaction.update', $subscribeTransaction) }}"
+                        method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                            Approve Transaction
+                        </button>
+                    </form>
+                @endif
+
             </div>
         </div>
     </div>

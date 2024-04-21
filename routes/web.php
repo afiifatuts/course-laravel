@@ -25,14 +25,14 @@ Route::middleware('auth')->group(function () {
 
     //must logged in before transaction
     Route::get('/checkout', [FrontController::class, 'checkout'])
-        ->name('profile.checkout')
+        ->name('front.checkout')
         ->middleware('role:student');
     Route::post('/checkout/store', [FrontController::class, 'checkout_store'])
-        ->name('profile.checkout.store')
+        ->name('front.checkout.store')
         ->middleware('role:student');
 
-    Route::post('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])
-        ->name('profile.learning')
+    Route::get('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])
+        ->name('front.learning')
         ->middleware('role:student|owner|teacher');
 
     //Authentication login
